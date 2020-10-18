@@ -1,0 +1,26 @@
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 300px;
+  height: auto;
+  margin-top: 30px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 30px;
+  color: grey;
+}
+.todoZone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.todo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.defaultTodo {
+  border: 0px solid grey;
+}

@@ -1,0 +1,16 @@
+.signinControlsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 220px;
+}
+.logBtn {
+  margin-left: 15px;
+}
+.logBtn:hover {
+  cursor: pointer;
+}
