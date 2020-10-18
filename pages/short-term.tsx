@@ -23,22 +23,27 @@ const ShortTermPage: React.FC = () => {
   }, [socket]);
 
   return (
-    <div className={globalStyles.container}>
-      <SigninControls />
-      <div className={styles.progressStageArea}>
-        <Dropzone zoneName="Backlog" zoneStage="backlog" socket={socket} />
-        <Dropzone zoneName="In progress" zoneStage="wip" socket={socket} />
-        <Dropzone zoneName="Completed" zoneStage="completed" socket={socket} />
-      </div>
-      <Link href={'/'}>
-        <a className={styles.goHome}>Home</a>
-      </Link>
-      {/* <CreateToDoModal
+    <div className={styles.container}>
+      <div className={styles.navbar}>{/* <h2>Navbar</h2> */}</div>
+      <div className={styles.content}>
+        <div className={styles.signinControls}>
+          <SigninControls />
+        </div>
+        <div className={styles.progressStageArea}>
+          <Dropzone zoneName="Backlog" zoneStage="backlog" socket={socket} />
+          <Dropzone zoneName="In progress" zoneStage="wip" socket={socket} />
+          <Dropzone zoneName="Completed" zoneStage="completed" socket={socket} />
+        </div>
+        <Link href={'/'}>
+          <a className={styles.goHome}>Home</a>
+        </Link>
+        {/* <CreateToDoModal
         modalIsOpen={createModalIsOpen}
         setModalIsOpen={setCreateModalIsOpen}
         setName={setName}
         setStage={setStage}
       /> */}
+      </div>
     </div>
   );
 };

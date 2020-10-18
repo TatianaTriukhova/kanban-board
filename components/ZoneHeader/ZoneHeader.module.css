@@ -1,0 +1,21 @@
+.header {
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
+}
+.header > h3 {
+  margin: 0px;
+  font-weight: 500;
+}
+.backlog {
+  background-color: #7487eb;
+}
+.wip {
+  background-color: #fe7e21;
+}
+.completed {
+  background-color: #48d0d0;
+}

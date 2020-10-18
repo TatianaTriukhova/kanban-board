@@ -11,7 +11,7 @@ const Home: React.FC = () => {
         <a>Sign up</a>
       </Link>
       <Link href={'/short-term'}>
-        <a>To short-term todos</a>
+        <a>To my boards</a>
       </Link>
     </div>
   );

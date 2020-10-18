@@ -125,9 +125,9 @@ const Todo: React.FC<{
           </a>
         )}
       </div>
-      {/* <input value={stage} type="text" onChange={(e) => setStage(e.target.value)} /> */}
-      {!isDefault && <button onClick={() => deleteTodo(todo.id)}>Delete</button>}
-      {shouldEdit && <button onClick={() => editOrCreateTodo(todo)}>Save</button>}
+
+      {/* {!isDefault && <button onClick={() => deleteTodo(todo.id)}>Delete</button>}
+      {shouldEdit && <button onClick={() => editOrCreateTodo(todo)}>Save</button>} */}
     </div>
   );
 };

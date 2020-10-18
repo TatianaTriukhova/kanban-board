@@ -4,6 +4,7 @@ import Todo from '../Todo';
 import { useShortTodoContext } from '../../hooks/useTodoContext';
 import { useDB } from '../../hooks/useDB';
 import { useState } from 'react';
+import ZoneHeader from '../ZoneHeader/ZoneHeader';
 const Dropzone: React.FC<{
   zoneStage: string;
   zoneName: string;
@@ -40,8 +41,9 @@ const Dropzone: React.FC<{
   };
   return (
     <div className={styles.dropzone} onDragOver={dragOver} onDrop={taskDrop}>
-      <h3>{zoneName}</h3>
-
+      <div className={styles.headerContainer}>
+        <ZoneHeader zoneName={zoneName} />
+      </div>
       <div className={styles.todoZone}>
         {shortTermTodos &&
           shortTermTodos
