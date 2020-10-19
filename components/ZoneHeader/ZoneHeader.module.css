@@ -7,7 +7,7 @@
   border-radius: 10px;
 }
 .header > h3 {
-  margin: 0px;
+  margin: 0px 0px 0px 10px;
   font-weight: 500;
 }
 .backlog {

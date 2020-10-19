@@ -45,21 +45,11 @@ const Dropzone: React.FC<{
         <ZoneHeader zoneName={zoneName} />
       </div>
       <div className={styles.todoZone}>
-        {shortTermTodos &&
-          shortTermTodos
-            .filter((todo) => todo.stage === zoneStage)
-            .map((task, index) => {
-              return (
-                <div
-                  className={styles.todo}
-                  key={task.id + ' ' + index}
-                  draggable
-                  onDragStart={(e: any) => dragStart(e, task)}
-                >
-                  <Todo todo={task} isDefault={false} />
-                </div>
-              );
-            })}
+        <div className={styles.createBtn}>
+          {zoneStage === 'backlog' && (
+            <button onClick={() => setShowDefaultTodo(true)}>Create a new todo</button>
+          )}
+        </div>
         {showDefaultTodo && (
           <div className={styles.todo}>
             <Todo
@@ -69,12 +59,21 @@ const Dropzone: React.FC<{
             />
           </div>
         )}
-      </div>
-
-      <div>
-        {zoneStage === 'backlog' && (
-          <button onClick={() => setShowDefaultTodo(true)}>Create a new todo</button>
-        )}
+        {shortTermTodos &&
+          shortTermTodos
+            .filter((todo) => todo.stage === zoneStage)
+            .map((task, index) => {
+              return (
+                <div
+                  className={styles.todoDragContainer}
+                  key={task.id + ' ' + index}
+                  draggable
+                  onDragStart={(e: any) => dragStart(e, task)}
+                >
+                  <Todo todo={task} isDefault={false} />
+                </div>
+              );
+            })}
       </div>
     </div>
   );

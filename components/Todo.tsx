@@ -104,15 +104,17 @@ const Todo: React.FC<{
         isDefault ? styles.defaultTodoContainer + ' ' + styles.todoContainer : styles.todoContainer
       }
     >
-      <input
-        placeholder="Enter name of the task..."
-        value={name}
-        type="text"
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div className={styles.taskName}>
+        <input
+          placeholder="Enter name of the task..."
+          value={name.toUpperCase()}
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
       <div className={styles.assignee}>
         {assignee ? (
-          <h3>{assignee}</h3>
+          <span>{assignee}</span>
         ) : (
           <a
             onClick={() => {
@@ -126,8 +128,8 @@ const Todo: React.FC<{
         )}
       </div>
 
-      {/* {!isDefault && <button onClick={() => deleteTodo(todo.id)}>Delete</button>}
-      {shouldEdit && <button onClick={() => editOrCreateTodo(todo)}>Save</button>} */}
+      {!isDefault && <button onClick={() => deleteTodo(todo.id)}>Delete</button>}
+      {shouldEdit && <button onClick={() => editOrCreateTodo(todo)}>Save</button>}
     </div>
   );
 };

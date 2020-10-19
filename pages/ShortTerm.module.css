@@ -1,29 +1,61 @@
 .navbar {
-  width: 20%;
+  width: 15%;
   height: 100vh;
-  border-right: 1px solid grey;
+  /* border-right: 1px solid grey; */
+  border-top: 1px solid grey;
   background-color: #28282c;
 }
+.navbar > ul {
+  list-style-type: none;
+}
+
+.navbar > ul > li {
+  padding-top: 15px;
+  font-size: 18px;
+}
+
 .content {
-  width: 80%;
+  width: 100%;
   background-color: #1c1c20;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
 }
 .container {
   min-height: 100vh;
   width: 100%;
   padding: 0 0.5rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   color: white;
 }
 
+.menuBtn {
+  font-size: 26px;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+}
+.menuBtn:hover {
+  cursor: pointer;
+}
+
 .signinControls {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
   width: 100%;
-  height: 100px;
-  border-bottom: 1px solid grey;
+  height: 80px;
+  align-items: center;
   background-color: #28282c;
+}
+.signinControls > h1 {
+  font-weight: 500;
+  margin: 5px 0px 0px 15px;
 }
 .todoContainer {
   width: 70%;
@@ -35,11 +67,6 @@
   padding: 10px 40px;
   margin-bottom: 30px;
   background-color: #28282c;
-}
-
-.goHome {
-  margin-top: 40px;
-  text-decoration: underline;
 }
 
 .draggableItemContainer {
@@ -54,7 +81,7 @@
 }
 .progressStageArea {
   margin: 20px auto;
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

@@ -1,6 +1,7 @@
 import styles from './SigninControls.module.css';
 import { useAuth } from '../../hooks/useAuth';
 import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 
 const SigninControls: React.FC = () => {
   const auth = useAuth();
@@ -8,8 +9,10 @@ const SigninControls: React.FC = () => {
 
   return (
     <div className={styles.signinControlsWrapper}>
-      {auth.user && <span>{`Signed in as ${auth.user.displayName}`}</span>}
-      <a
+      <Link href={'/'}>
+        <button>Home</button>
+      </Link>
+      <button
         className={styles.logBtn}
         onClick={() => {
           if (auth.user) {
@@ -20,7 +23,7 @@ const SigninControls: React.FC = () => {
         }}
       >
         {auth.user ? 'Logout' : 'Login'}
-      </a>
+      </button>
     </div>
   );
 };

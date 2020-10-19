@@ -1,29 +1,38 @@
 .todoContainer {
-  width: 88%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   border: 2px solid rgb(49, 49, 49);
   background-color: #35353a;
   border-radius: 15px;
-  padding: 10px 40px;
+  padding: 10px 16px;
   margin-bottom: 30px;
+}
+.todoContainer:hover {
+  cursor: pointer;
+}
+.todoContainer > button {
+  margin: 0;
+  background-color: #333338;
 }
 .defaultTodoContainer {
   border: none;
   width: 100%;
 }
 
+.assignee {
+  margin-bottom: 10px;
+}
+.assignee:hover {
+  cursor: pointer;
+}
+.taskName > input {
+  padding: 1px;
+  letter-spacing: 0.8px;
+}
 .defaultTodoContainer input {
   border: 1px solid #1f9ea2;
   text-align: center;
   padding: 5px;
   width: 100%;
-}
-.assignee {
-  margin-bottom: 10px;
-  text-decoration: underline;
-}
-.assignee:hover {
-  cursor: pointer;
 }
