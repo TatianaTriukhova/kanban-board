@@ -1,5 +1,5 @@
 interface TodoType {
-  id: string;
+  _id: string;
   name: string;
   stage: string;
   assignee?: string;

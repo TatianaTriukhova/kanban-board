@@ -12,11 +12,13 @@ export const SocketContextProvider = (props: { children: React.ReactNode }): Rea
   const { user } = useAuth();
   const [socket, setSocket] = useState<SocketIOClient.Socket | undefined>();
   const { children } = props;
+
   useEffect(() => {
     if (user && user.email) {
       const soc = io();
       setSocket(soc);
     }
   }, [user]);
+
   return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
 };

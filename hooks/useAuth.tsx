@@ -2,7 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { createContext, Dispatch, SetStateAction, useContext, useState, useEffect } from 'react';
 import { noop } from 'lodash';
+import { initializeApplication } from '../lib/db';
 
+initializeApplication();
 export interface Auth {
   user: firebase.User | null;
   login: (email: string, password: string) => Promise<void>;
@@ -12,6 +14,7 @@ export interface Auth {
 
 export const AuthProvider: React.FC = ({ children }) => {
   const userCtx = useState<firebase.User | null>(null);
+
   return <AuthContext.Provider value={{ userCtx }}>{children}</AuthContext.Provider>;
 };
 
@@ -28,6 +31,8 @@ export const useAuth = (): Auth => {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       if (!user) {
         throw new Error('Could not create a user');
+      } else {
+        console.log(':(');
       }
     } catch (err) {
       console.log(err);

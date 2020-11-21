@@ -36,6 +36,7 @@ export const ShortTermTodoContextProvider = (props: {
   const [shortTermTodos, setShortTermTodos] = useState(
     initialShortTermTodos.sort((a, b) => (a.name < b.name ? -1 : 1)),
   );
+
   return (
     <ShortTermTodoContext.Provider value={{ shortTermTodos, setShortTermTodos }}>
       {children}

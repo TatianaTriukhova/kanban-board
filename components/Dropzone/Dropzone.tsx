@@ -2,7 +2,6 @@ import TodoType from '../../types/TodoType';
 import styles from './Dropzone.module.css';
 import Todo from '../Todo';
 import { useShortTodoContext } from '../../hooks/useTodoContext';
-import { useDB } from '../../hooks/useDB';
 import { useState } from 'react';
 import ZoneHeader from '../ZoneHeader/ZoneHeader';
 const Dropzone: React.FC<{
@@ -11,8 +10,8 @@ const Dropzone: React.FC<{
   socket: SocketIOClient.Socket | undefined;
 }> = ({ zoneStage, zoneName, socket }) => {
   const { shortTermTodos, setShortTermTodos } = useShortTodoContext();
-  const { shortTermsDosCollection } = useDB();
   const [showDefaultTodo, setShowDefaultTodo] = useState(false);
+
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -26,11 +25,12 @@ const Dropzone: React.FC<{
     const oldTask = JSON.parse(e.dataTransfer.getData('todo'));
     const newTask = { ...oldTask, stage: zoneStage };
 
-    await shortTermsDosCollection.doc(oldTask.id).update({
-      stage: newTask.stage,
+    await fetch('http://localhost:3000/api/short-term', {
+      method: 'PUT',
+      body: JSON.stringify({ _id: oldTask._id, stage: newTask.stage }),
     });
     const newTodos = shortTermTodos.map((todo) => {
-      if (todo.id === oldTask.id) {
+      if (todo._id === oldTask._id) {
         return { ...todo, stage: newTask.stage };
       } else {
         return todo;
@@ -53,12 +53,13 @@ const Dropzone: React.FC<{
         {showDefaultTodo && (
           <div className={styles.todo}>
             <Todo
-              todo={{ id: '', name: '', stage: 'backlog' }}
+              todo={{ _id: '', name: '', stage: 'backlog' }}
               isDefault={true}
               setShowDefaultTodo={setShowDefaultTodo}
             />
           </div>
         )}
+
         {shortTermTodos &&
           shortTermTodos
             .filter((todo) => todo.stage === zoneStage)
@@ -66,7 +67,7 @@ const Dropzone: React.FC<{
               return (
                 <div
                   className={styles.todoDragContainer}
-                  key={task.id + ' ' + index}
+                  key={task._id + ' ' + index}
                   draggable
                   onDragStart={(e: any) => dragStart(e, task)}
                 >

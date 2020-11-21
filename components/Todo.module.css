@@ -31,8 +31,16 @@
   letter-spacing: 0.8px;
 }
 .defaultTodoContainer input {
-  border: 1px solid #1f9ea2;
+  border: none;
   text-align: center;
   padding: 5px;
   width: 100%;
+}
+.actionButtons {
+  display: flex;
+  flex-direction: row;
+}
+.actionButtons > button {
+  background-color: #28282c5b;
+  margin-left: 0;
 }

@@ -20,7 +20,6 @@ app.prepare().then(() => {
 
   sio.on('connect', (socket) => {
     socket.on('board-update', (todos) => {
-      console.log(todos);
       socket.broadcast.emit('board-update', todos);
     });
   });

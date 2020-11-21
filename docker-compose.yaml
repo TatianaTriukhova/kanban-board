@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: 'mongo:4.2'
+    container_name: 'tasks-board-db'
+    env_file:
+      - .env
+    volumes:
+      - ./.db:/data/db
+    ports:
+      - '27017:27017'
+    command: mongod --auth

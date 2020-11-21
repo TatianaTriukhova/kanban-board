@@ -21,7 +21,7 @@ const ZoneHeader: React.FC<{ zoneName: string }> = ({ zoneName }) => {
       break;
     }
   }
-  console.log(style);
+
   return (
     <div className={styles.header + ' ' + style}>
       <FontAwesomeIcon icon={icon} />

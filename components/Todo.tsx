@@ -1,7 +1,6 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import styles from './Todo.module.css';
 import { useShortTodoContext } from '../hooks/useTodoContext';
-import { useDB } from '../hooks/useDB';
 import TodoType from '../types/TodoType';
 import { useAuth } from '../hooks/useAuth';
 import { useSocket } from '../hooks/useSocket';
@@ -13,9 +12,8 @@ const Todo: React.FC<{
 }> = ({ todo, isDefault, setShowDefaultTodo }) => {
   const [name, setName] = useState('');
   const [stage, setStage] = useState('');
-  const [assignee, setAssignee] = useState('');
+  const [assignee, setAssignee] = useState<TodoType['assignee']>();
   const { shortTermTodos, setShortTermTodos } = useShortTodoContext();
-  const { shortTermsDosCollection } = useDB();
   const [shouldEdit, setShouldEdit] = useState(false);
   const { user } = useAuth();
   const socket = useSocket();
@@ -30,40 +28,40 @@ const Todo: React.FC<{
 
   const deleteTodo = async (docId: string) => {
     const filtered = shortTermTodos.filter((todo) => {
-      return todo.id !== docId;
+      return todo._id !== docId;
     });
 
     setShortTermTodos(filtered);
     socket.emit('board-update', filtered);
-    await shortTermsDosCollection
-      .doc(docId)
-      .delete()
-      .then()
-      .catch(function (err) {
-        console.log(err);
-      });
+
+    await fetch('http://localhost:3000/api/short-term', {
+      method: 'DELETE',
+      body: JSON.stringify({ _id: docId }),
+    });
   };
 
-  useEffect(() => {
-    if (assignee) {
-      editTodo(todo);
-    }
-  }, [assignee]);
+  const updateAssignee = (assigneeName: TodoType['assignee']): void => {
+    setAssignee(assigneeName);
 
-  const editTodo = async (todo: TodoType) => {
+    editTodo({ ...todo, assignee: assigneeName });
+  };
+
+  const editTodo = async (task: TodoType) => {
+    console.log({ task });
     const newTodos = shortTermTodos.map((td) => {
-      if (td === todo) {
-        return { ...td, name: name, stage: stage, assignee: assignee };
+      if (td._id === task._id) {
+        console.log({ task });
+        return task;
       }
 
       return td;
     });
+
     setShortTermTodos(newTodos);
 
-    await shortTermsDosCollection.doc(todo.id).update({
-      name: name,
-      stage: stage,
-      assignee: assignee,
+    await fetch('http://localhost:3000/api/short-term', {
+      method: 'PUT',
+      body: JSON.stringify(task),
     });
 
     socket.emit('board-update', newTodos);
@@ -74,11 +72,18 @@ const Todo: React.FC<{
     if (name.length < 1) {
       return;
     }
-    const doc = await shortTermsDosCollection.add({ name, stage });
+
+    const doc = await fetch('http://localhost:3000/api/short-term', {
+      method: 'POST',
+      body: JSON.stringify({ name, stage: 'backlog' }),
+    });
+
+    const result = await doc.json();
+
     const newTodo = {
       name,
       stage: 'backlog',
-      id: doc.id,
+      _id: result._id,
     };
     setShortTermTodos([...shortTermTodos, newTodo].sort((a, b) => (a.name < b.name ? -1 : 1)));
     socket.emit('board-update', [...shortTermTodos, newTodo]);
@@ -89,7 +94,13 @@ const Todo: React.FC<{
     if (isDefault) {
       createTodo();
     } else {
-      editTodo(todo);
+      const updatedTodo = {
+        _id: todo._id,
+        name,
+        stage,
+        assignee,
+      };
+      editTodo(updatedTodo);
     }
   };
   useEffect(() => {
@@ -119,7 +130,7 @@ const Todo: React.FC<{
           <a
             onClick={() => {
               if (user && user.displayName) {
-                setAssignee(user.displayName);
+                updateAssignee(user.displayName);
               }
             }}
           >
@@ -127,9 +138,10 @@ const Todo: React.FC<{
           </a>
         )}
       </div>
-
-      {!isDefault && <button onClick={() => deleteTodo(todo.id)}>Delete</button>}
-      {shouldEdit && <button onClick={() => editOrCreateTodo(todo)}>Save</button>}
+      <div className={styles.actionButtons}>
+        {!isDefault && <button onClick={() => deleteTodo(todo._id)}>Delete</button>}
+        {shouldEdit && <button onClick={() => editOrCreateTodo(todo)}>Save</button>}
+      </div>
     </div>
   );
 };
