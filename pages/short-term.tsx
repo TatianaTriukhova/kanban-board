@@ -1,7 +1,6 @@
 import styles from './ShortTerm.module.css';
 import { GetServerSideProps } from 'next';
 import TodoType from '../types/TodoType';
-import Dropzone from '../components/Dropzone/Dropzone';
 import { ShortTermTodoContextProvider, useShortTodoContext } from '../hooks/useTodoContext';
 import SigninControls from '../components/SigninControls/SigninControls';
 import { useEffect, useState } from 'react';
@@ -9,6 +8,8 @@ import { useSocket } from '../hooks/useSocket';
 import { useAuth } from '../hooks/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Board from '../components/Board/Board';
+import Navbar from '../components/Navbar/Navbar';
 
 const ShortTermPage: React.FC = () => {
   const { setShortTermTodos } = useShortTodoContext();
@@ -33,23 +34,8 @@ const ShortTermPage: React.FC = () => {
         <SigninControls />
       </div>
       <div className={styles.content}>
-        {showNavbar && (
-          <div className={styles.navbar}>
-            <ul>
-              <li>
-                <a>My profile</a>
-              </li>
-              <li>
-                <a>My boards</a>
-              </li>
-            </ul>
-          </div>
-        )}
-        <div className={styles.progressStageArea}>
-          <Dropzone zoneName="Backlog" zoneStage="backlog" socket={socket} />
-          <Dropzone zoneName="In progress" zoneStage="wip" socket={socket} />
-          <Dropzone zoneName="Completed" zoneStage="completed" socket={socket} />
-        </div>
+        {showNavbar && <Navbar />}
+        <Board socket={socket}></Board>
       </div>
     </div>
   );

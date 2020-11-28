@@ -9,3 +9,13 @@
   background-color: rgb(31, 30, 30);
   color: white;
 }
+.logo {
+  margin-bottom: 10px;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}

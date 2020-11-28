@@ -1,0 +1,14 @@
+.navbar {
+  /* width: 15%; */
+  height: 100vh;
+  border-top: 1px solid grey;
+  background-color: #28282c;
+}
+.navbar > ul {
+  list-style-type: none;
+}
+
+.navbar > ul > li {
+  padding-top: 15px;
+  font-size: 18px;
+}
