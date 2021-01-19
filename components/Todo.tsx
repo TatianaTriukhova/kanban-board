@@ -47,10 +47,8 @@ const Todo: React.FC<{
   };
 
   const editTodo = async (task: TodoType) => {
-    console.log({ task });
     const newTodos = shortTermTodos.map((td) => {
       if (td._id === task._id) {
-        console.log({ task });
         return task;
       }
 
